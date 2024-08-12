@@ -1,19 +1,25 @@
-name: Deploy Hello World App
+name: Reusable Workflow for Hello World App
 
 on:
-  push:
-    branches:
-      - main  # Change to 'master' if your default branch is 'master'
+  workflow_call:
 
 jobs:
-  build:
-    runs-on: ubentu-latest
-
+  run:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Run Hello World script
-      shell: pwsh
-      run: |
-        .\hello.ps1
+      - name: Install PowerShell
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https software-properties-common
+          wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+          sudo dpkg -i packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+
+      - name: Run Hello World script
+        shell: pwsh
+        run: |
+          pwsh ./hello.ps1

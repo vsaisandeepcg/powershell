@@ -1,0 +1,19 @@
+name: Deploy Hello World App
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if your default branch is 'master'
+
+jobs:
+  build:
+    runs-on: ubentu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run Hello World script
+      shell: pwsh
+      run: |
+        .\hello.ps1

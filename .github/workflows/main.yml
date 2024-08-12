@@ -1,0 +1,10 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if your default branch is 'master'
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/deploy.yml
